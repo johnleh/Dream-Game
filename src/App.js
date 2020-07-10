@@ -22,6 +22,7 @@ class App extends React.Component {
     this.handleKeyPress = this.handleKeyPress.bind(this)
   }
 
+// checks if the current viewed portion of the room is weird and it is a dream
 isWeird() {
   if(this.state.direction === this.state.weirdDirection && Math.floor(Math.random()*2) === 1) {
     return true;
@@ -29,6 +30,7 @@ isWeird() {
   return false;
 }
 
+// turns keypresses into the different button clicks
 handleKeyPress(e) {
   if(!this.state.alive || !this.state.daysLeft) {
     if (e.keyCode === 13) {
@@ -58,6 +60,7 @@ componentDidMount(){
 componentWillUnmount(){
   document.removeEventListener("keydown", this.handleKeyPress);
 }
+
 
   handleClick(clickType) {
     if (clickType === this.state.dreaming) {

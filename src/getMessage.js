@@ -9,6 +9,8 @@ var pastVarient = -1;
 var varient = Math.floor(Math.random()*2);
 
 export default function getMessage(buttonMessage, goodMessage, wakeup, isWeird, isDreaming, direction) {
+    
+    // when more rooms and messages are made there will be different varients
     while(pastVarient === varient) {
         varient = Math.floor(Math.random()*2);
     }
