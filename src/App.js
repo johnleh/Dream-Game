@@ -11,9 +11,10 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     this.state={
+      // the top text is randomly changed to give clues on whether the player is dreaming or not
       topMessage: "Am I dreaming?",
       dreaming: 1,
-      alive: true,
+      alive: 1,
       direction: 0,
       daysLeft: 31,
       weirdDirection: 6,
@@ -61,7 +62,7 @@ componentWillUnmount(){
   document.removeEventListener("keydown", this.handleKeyPress);
 }
 
-
+// checks after the player submits their choice, if they are right it changes all the required fields
   handleClick(clickType) {
     if (clickType === this.state.dreaming) {
       const message =  getMessage(1,1,clickType,0,0,0);
@@ -76,11 +77,22 @@ componentWillUnmount(){
       const message = getMessage(1,0,clickType,0,0,0);
       this.setState(() => ({
         topMessage: message,
-        alive: false,
+        alive: 0,
       }));
     }
   }
 
+/* handles when the player changes their view direction
+  the direction of the game uses modulo 4 to check whether it is zoomed or not
+  0 = north
+  1 = east
+  2 = south
+  3 = west
+  4 = north zoomed
+  5 = east zoomed
+  6 = south zoomed
+  7 = west zoomed
+*/
   changeDirection(buttonNumber){
     if (buttonNumber === 2){
       this.setState(() => ({
@@ -116,17 +128,21 @@ componentWillUnmount(){
       return(
         <div className="page">
           <h4 className="text">{"Day "+ (31 - this.state.daysLeft)}</h4>
+          
           <h4 className="text">{this.state.topMessage}</h4>
 
           {this.state.direction > 3 ? "" : 
           <button className="directionButton" onClick={() => this.changeDirection(2)}>{"←"}</button>
           }
+          
           <div className="divider"/> <div className="divider"/>
+    
           {this.state.direction > 3 ? 
           <button className="directionButton" onClick={() => this.changeDirection(0)}>{"↓"}</button>
           :
           <button className="directionButton" onClick={() => this.changeDirection(0)}>{"↑"}</button>
           }
+
           <div className="divider"/> <div className="divider"/>
             
           {this.state.direction > 3 ? "" : 
